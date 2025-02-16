@@ -1,13 +1,13 @@
-import { Hex, createPublicClient, formatEther, http, parseEther } from "viem";
+import dotenv from "dotenv";
+import { Hex, createPublicClient, formatEther, http } from "viem";
 import { privateKeyToAccount } from "viem/accounts";
 import { arbitrumSepolia } from "viem/chains";
 
-import dotenv from "dotenv";
-
 dotenv.config();
-
 const privateKey = process.env.PRIVATE_KEY;
 const account = privateKeyToAccount(privateKey as Hex);
+
+console.log(account.address);
 
 (async () => {
   const client = createPublicClient({
@@ -20,6 +20,7 @@ const account = privateKeyToAccount(privateKey as Hex);
   });
 
   console.log(formatEther(balance));
+  console.log(balance);
 
   const nonce = await client.getTransactionCount({
     address: account.address,
